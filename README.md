@@ -3,7 +3,7 @@
 #### Logo abaixo tem um tutorial de como me usar
 
 # Tutorial
-## Primeiro de tudo tenha em mente que você precisa ter o NodeJS instalado. Vamos começar?
+## Antes de tudo, tenha em mente que você precisa ter o NodeJS instalado. Vamos começar?
 
 #### Instale a versão dev do discord.js: ``npm install discordjs/discord.js#master``
 #### Logo em seguida instale o dotenv: ``npm i --save-dev dotenv``
