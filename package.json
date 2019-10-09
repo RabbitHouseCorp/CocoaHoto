@@ -10,8 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "discord.js": "github:discordjs/discord.js#master",
-    "discord.js-lavalink": "^2.2.3",
-    "dotenv": "^8.1.0",
-    "node-fetch": "^2.6.0"
+    "dotenv": "^8.1.0"
   }
 }
