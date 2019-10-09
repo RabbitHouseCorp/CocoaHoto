@@ -1,0 +1,17 @@
+{
+  "name": "cocoa-hoto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "DanielaGC",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "github:discordjs/discord.js#master",
+    "discord.js-lavalink": "^2.2.3",
+    "dotenv": "^8.1.0",
+    "node-fetch": "^2.6.0"
+  }
+}
