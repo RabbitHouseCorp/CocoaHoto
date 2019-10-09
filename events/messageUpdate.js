@@ -5,12 +5,22 @@ module.exports = class MessageUpdateEvent {
 	}
 	
 	async run(oldMessage, newMessage) {
+
+		if (oldMessage.author.bot) return
+
 		const embed = new MessageEmbed()
 		.setColor(this.client.colors.default)
-		.setTitle("Message edited")
+		.setAuthor(oldMessage.author.tag, oldMessage.author.displayAvatarURL())
+		.setFooter(`User ID: ${oldMessage.author.id}`)
+		.setTimestamp(new Date())
+		.setDescription(`${oldMessage.author} **edited a message**\n\n**Text channel:** ${oldMessage.channel}`)
+		.addBlankField(true)
 		.addField("Old message", `\`\`\`${oldMessage.content}\`\`\``)
 		.addField("New message", `\`\`\`${newMessage.content}\`\`\``)
 		
-		message.guild.channels.get("468880753195745291").send(embed)
+		oldMessage.guild.channels.get("468880753195745291").send(embed)
+		
+		if (oldMessage.content === newMessage.content) return
+		this.client.emit("message", newMessage)
 	}
 }
