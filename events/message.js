@@ -58,7 +58,9 @@ module.exports = class MessageEvent {
     }
 
     try {
-      cmd.run(message, args).catch(err => {
+      new Promise((res, rej) => {
+        res(cmd.run(message, args))
+      }).catch(err => {
         message.cocoaReply("Oh no... An error occurred while doing this action, I'm sorry for what happened. :sob:")
         console.error(err.stack)
       })
