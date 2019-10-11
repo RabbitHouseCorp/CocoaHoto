@@ -25,7 +25,7 @@ module.exports = class MessageEvent {
     }
 
     if (DiscordInvite.some(url => message.content.includes(url))) {
-    	if (message.member.roles.has("554039524309860362")
+    	if (message.member.roles.has("554039524309860362") return
       message.member.ban(message.author.id, {days: 7, reason: "[AUTO BAN] - DISCLOSURE: Disclosing other servers in public chat generates automatic ban."}).then(user => {
         let embed = new MessageEmbed()
         .setColor(this.client.colors.punishment)
