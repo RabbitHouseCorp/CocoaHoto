@@ -44,7 +44,7 @@ module.exports = class MessageEvent {
     if (!message.content.startsWith(process.env.PREFIX)) return
     const args = message.content.slice(process.env.PREFIX.length).trim().split(" ")
     const command = args.shift().toLowerCase()
-    const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.commands.get(this.client.aliases.get(command)))
+    const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command))
     if (!cmd) return
     if (cmd.config.onlyDevs) {
       if (!this.client.config.owner.some(owner => message.author.id === owner)) return message.cocoaReply("only developers has access from this command")
