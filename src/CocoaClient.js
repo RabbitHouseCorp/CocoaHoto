@@ -1,7 +1,17 @@
+const http = require("http")
+const express = require("express")
+const app = express()
+app.get("/", (request, response) => {
+    response.sendStatus(200)
+})
+app.listen(process.env.PORT)
+setInterval(() => {
+    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`)
+}, 15000)
 const { Client, Collection } = require("discord.js")
 const { readdir } = require("fs")
 require("dotenv").config()
-module.exports = class Cocoa extends Client {
+module.exports = class CocoaClient extends Client {
     constructor(options = {}) {
         super(options)
 
