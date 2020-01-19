@@ -12,7 +12,7 @@ module.exports = class MessageEvent {
     let DiscordInvite = ["discordapp.com/invite", "discord.gg", "discord.me"]
     if (url.some(url => message.content.includes(url))) {
     	if (message.member.roles.has("554039524309860362")) return
-      message.member.ban(message.author.id, {days: 7, reason: "[AUTO BAN] - SPAM BOT: Send inappropriate links on servers."}).then(user => {
+      message.member.ban({days: 7, reason: "[AUTO BAN] - SPAM BOT: Send inappropriate links on servers."}).then(user => {
         let embed = new MessageEmbed()
         .setColor(this.client.colors.punishment)
         .setAuthor(`${user.user.tag} | Banned`, user.user.displayAvatarURL())
@@ -26,7 +26,7 @@ module.exports = class MessageEvent {
 
     if (DiscordInvite.some(url => message.content.includes(url))) {
     	if (message.member.roles.has("554039524309860362")) return
-      message.member.ban(message.author.id, {days: 7, reason: "[AUTO BAN] - DISCLOSURE: Disclosing other servers in public chat generates automatic ban."}).then(user => {
+      message.member.ban({days: 7, reason: "[AUTO BAN] - DISCLOSURE: Disclosing other servers in public chat generates automatic ban."}).then(user => {
         let embed = new MessageEmbed()
         .setColor(this.client.colors.punishment)
         .setAuthor(`${user.user.tag} | Banned`, user.user.displayAvatarURL())
