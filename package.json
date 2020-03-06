@@ -13,7 +13,7 @@
   "author": "DanielaGC",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "github:discordjs/discord.js#master",
+    "discord.js": "^12.0.1",
     "express": "^4.17.1"
   },
   "devDependencies": {

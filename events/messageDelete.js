@@ -7,12 +7,12 @@ module.exports = class MessageDeleteReceive {
     run(message) {
 
         let embed = new MessageEmbed()
-        .setColor(this.client.colors.default)
-        .setAuthor(message.author.tag, message.author.displayAvatarURL())
-        .setDescription("**Deleted text message**")
-        .addBlankField(true)
-        .addField("Message", `\`\`\`fix\n${message.content}\`\`\``)
+            .setColor(this.client.colors.default)
+            .setAuthor(message.author.tag, message.author.displayAvatarURL())
+            .setDescription("**Deleted text message**")
+            .addBlankField(true)
+            .addField("Message", `\`\`\`fix\n${message.content}\`\`\``)
 
-        message.guild.channels.get("468880753195745291").send(embed)
+        message.guild.channels.cache.get("468880753195745291").send(embed)
     }
 }
