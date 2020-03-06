@@ -1,6 +1,6 @@
 const Command = require("../../src/structures/Command")
 module.exports = class NotifyCommand extends Command {
-    constructor (client) {
+    constructor(client) {
         super(client, {
             name: "notify",
             aliases: ["notificar"]
@@ -8,8 +8,8 @@ module.exports = class NotifyCommand extends Command {
     }
 
     run(message, args) {
-        
-        if (message.member.roles.has("482366922822909982")) {
+
+        if (message.member.roles.cache.has("482366922822909982")) {
             message.member.roles.remove("482366922822909982").then(() => {
                 message.reply("you will no longer receive Chino news")
             })
