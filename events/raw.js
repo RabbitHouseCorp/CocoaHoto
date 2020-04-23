@@ -1,4 +1,4 @@
-module.exports = class RawListeners {
+module.exports = class RawEvent {
 	constructor(client {
 		this.client = client
 	}
