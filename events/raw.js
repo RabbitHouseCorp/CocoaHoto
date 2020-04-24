@@ -4,22 +4,28 @@ module.exports = class RawEvent {
 	}
 	
 	run(raw) {
-		if (raw.t !== "PRESENCE_UPDATE" && raw.d.guild_id !== "468877023926943764") return
-		let status = raw.d.activities.find(status => status.type === 4)
-		let guild = this.client.guilds.cache.get("468877023926943764")
-		let role = guild.roles.cache.get("703018773216755752")
-		let member = guild.members.cache.get(raw.d.user.id)
-		let isDiv = status.state.match(/((?:discord\.gg|discordapp\.com|www\.|http|invite|discord\.com|discord\.me))/g) ? true : false
-		if (!status) {
-			if (!member.roles.cache.has(role.id)) return
-			member.roles.remove(role.id)
+		const rabbitGuild = this.client.guilds.cache.get("468877023926943764")
+
+		if (rabbitGuild && raw.t !== "PRESENCE_UPDATE" && raw.d.guild_id !== rabbitGuild.id) return
+
+		const muteRoleId = "703018773216755752"
+		const member = rabbitGuild.members.cache.get(raw.d.user.id)
+		const hasInvStatus = this.hasInviteStatus(member)
+		const hasMuteRole = member.roles.has(muteRoleId)
+		if (hasInvStatus && !hasMuteRole) {
+			member.roles.add(muteRoleId)
+		} else if (hasMuteRole && hasInvStatus) {
+			member.roles.remove(muteRoleId)
 		}
-		if (isDiv) {
-			if (member.roles.cache.has(role.id)) return
-			member.roles.add(role.id)
-		} else {
-			if (!member.roles.cache.has(role.id)) return
-			member.roles.remove(role.id)
-		}
+	}
+
+	hasInviteStatus (member) {
+		return member.presence.activities.some(
+			({ type, state }) => type === 'CUSTOM_STATUS' && this.isInvite(state)
+		)
+	}
+	
+	isInvite (text) {
+		return (/((?:discord\.gg|discordapp\.com|www\.|http|invite|discord\.com|discord\.me))/g).test(text)
 	}
 }
