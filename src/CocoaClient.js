@@ -1,6 +1,7 @@
 
 const { readdir } = require("fs")
 const { Client, Collection } = require("discord.js")
+const config = require('./config')
 
 module.exports = class CocoaClient extends Client {
     constructor(options = {}) {
@@ -8,7 +9,6 @@ module.exports = class CocoaClient extends Client {
 
         this.commands = new Collection()
         this.aliases = new Collection()
-        this.config = require('./config')
         this.colors = require("./resource/colors.json")
     }
 
@@ -16,7 +16,7 @@ module.exports = class CocoaClient extends Client {
         console.log("Starting...")
         this.loadCommands("./commands")
         this.loadEvents("./events")
-        return super.login(this.config.BOT_TOKEN)
+        return super.login(config.BOT_TOKEN)
     }
 
     loadCommands(path) {

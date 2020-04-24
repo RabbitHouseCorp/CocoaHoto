@@ -49,7 +49,7 @@ module.exports = class MessageEvent {
     const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command))
     if (!cmd) return
     if (cmd.config.onlyDevs) {
-      if (!this.client.config.owner.some(owner => message.author.id === owner)) return message.cocoaReply("only developers has access from this command")
+      if (!config.OWNER_IDS.includes(message.author.id)) return message.cocoaReply("only developers has access from this command")
     }
     let userPerms = cmd.config.userPermission
     let clientPerms = cmd.config.clientPermission
