@@ -14,7 +14,7 @@ module.exports = class RawEvent {
 		const hasMuteRole = member.roles.has(muteRoleId)
 		if (hasInvStatus && !hasMuteRole) {
 			member.roles.add(muteRoleId)
-		} else if (hasMuteRole && hasInvStatus) {
+		} else if (!hasInvStatus && hasMuteRole) {
 			member.roles.remove(muteRoleId)
 		}
 	}
