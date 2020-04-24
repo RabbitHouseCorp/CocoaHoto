@@ -6,13 +6,17 @@ module.exports = class RawEvent {
 	}
 	
 	run(raw) {
-		const rabbitGuild = this.client.guilds.cache.get(config.GUILD_ID)
+    if (raw.t !== "PRESENCE_UPDATE") return 
+    if (raw.d.guild_id !== config.GUILD_ID) return
+    
+    const member = this.client
+      .guilds.cache.get(config.GUILD_ID)
+      .members.cache.get(raw.d.user.id)
 
-		if (rabbitGuild && raw.t !== "PRESENCE_UPDATE" && raw.d.guild_id !== rabbitGuild.id) return
+    if (member.user.bot) return
 
-		const member = rabbitGuild.members.cache.get(raw.d.user.id)
-		const hasInvStatus = this.hasInviteStatus(member)
-		const hasMuteRole = member.roles.cache.has(config.MUTE_ROLE_ID)
+    const hasInvStatus = this.hasInviteStatus(raw.d.activities)
+    const hasMuteRole = raw.d.roles.includes(config.MUTE_ROLE_ID)
 		if (hasInvStatus && !hasMuteRole) {
 			member.roles.add(config.MUTE_ROLE_ID)
 		} else if (hasMuteRole && !hasInvStatus) {
@@ -20,11 +24,11 @@ module.exports = class RawEvent {
 		}
 	}
 
-	hasInviteStatus (member) {
-		return member.presence.activities.some(({ type, state }) => type === "CUSTOM_STATUS" && this.isInvite(state.toLowerCase()))
+	hasInviteStatus (RawActivities) {
+		return RawActivities.some(({ type, state }) => type === 4 && this.isInvite(state))
 	}
 	
 	isInvite (text) {
-		return (/((?:discord\.gg|discordapp\.com|www\.|http|invite|discord\.com|discord\.me))/g).test(text)
+		return (/((?:discord\.gg|discordapp\.com|www\.|http|invite|discord\.com|discord\.me))/gi).test(text)
 	}
 }
