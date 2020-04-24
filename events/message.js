@@ -1,4 +1,6 @@
+const config = require('../src/config')
 const { MessageEmbed } = require("discord.js")
+
 module.exports = class MessageEvent {
   constructor(client) {
     this.client = client
@@ -11,7 +13,7 @@ module.exports = class MessageEvent {
     let url = ["https://nakedphotos.club/", "https://viewc.site/", "https://privatepage.vip/"]
     let DiscordInvite = ["discordapp.com/invite", "discord.gg", "discord.me"]
     if (url.some(url => message.content.includes(url))) {
-      if (message.member.roles.cache.has("554039524309860362")) return
+      if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
       message.member.ban({ days: 7, reason: "[AUTO BAN] - SPAM BOT: Send inappropriate links on servers." }).then(user => {
         let embed = new MessageEmbed()
           .setColor(this.client.colors.punishment)
@@ -20,12 +22,12 @@ module.exports = class MessageEvent {
           .addField("Who banned", this.client.user.tag, true)
           .addField("Reason", "```fix\n[AUTO BAN] - SPAM BOT: Send inappropriate links on servers.```")
 
-        message.guild.channels.cache.get("468881393787863052").send(embed)
+        message.guild.channels.cache.get(config.LOG_PUBLIC_CHANNEL_ID).send(embed)
       })
     }
 
     if (DiscordInvite.some(url => message.content.includes(url))) {
-      if (message.member.roles.cache.has("554039524309860362")) return
+      if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
       message.member.ban({ days: 7, reason: "[AUTO BAN] - DISCLOSURE: Disclosing other servers in public chat generates automatic ban." }).then(user => {
         let embed = new MessageEmbed()
           .setColor(this.client.colors.punishment)
@@ -34,7 +36,7 @@ module.exports = class MessageEvent {
           .addField("Who banned", this.client.user.tag, true)
           .addField("Reason", "```fix\n[AUTO BAN] - DISCLOSURE: Disclosing other servers in public chat generates automatic ban.```")
 
-        message.guild.channels.cache.get("468881393787863052").send(embed)
+        message.guild.channels.cache.get(config.LOG_PUBLIC_CHANNEL_ID).send(embed)
       })
     }
 

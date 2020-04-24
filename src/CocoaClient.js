@@ -1,30 +1,22 @@
 
-const http = require("http")
-const express = require("express")
-const app = express()
-app.get("/", (request, response) => {
-    response.sendStatus(200)
-})
-app.listen(process.env.PORT)
-setInterval(() => {
-    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`)
-}, 15000)
-
-const { Client, Collection } = require("discord.js")
 const { readdir } = require("fs")
+const { Client, Collection } = require("discord.js")
+
 module.exports = class CocoaClient extends Client {
     constructor(options = {}) {
-        super(options)
+        super({ ...options, fetchAllMembers: true })
 
         this.commands = new Collection()
         this.aliases = new Collection()
-        this.config = require("../config.json")
+        this.config = require('./config')
         this.colors = require("./resource/colors.json")
     }
 
-    login(token) {
-        super.login(token)
-        return this
+    login() {
+        console.log("Starting...")
+        this.loadCommands("./commands")
+        this.loadEvents("./events")
+        return super.login(this.config.BOT_TOKEN)
     }
 
     loadCommands(path) {

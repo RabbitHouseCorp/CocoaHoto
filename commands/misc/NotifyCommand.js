@@ -9,12 +9,12 @@ module.exports = class NotifyCommand extends Command {
 
     run(message, args) {
 
-        if (message.member.roles.cache.has("482366922822909982")) {
-            message.member.roles.remove("482366922822909982").then(() => {
+        if (message.member.roles.cache.has(this.client.config.NOTIFY_ROLE_ID)) {
+            message.member.roles.remove(this.client.config.NOTIFY_ROLE_ID).then(() => {
                 message.reply("you will no longer receive Chino news")
             })
         } else {
-            message.member.roles.add("482366922822909982").then(() => {
+            message.member.roles.add(this.client.config.NOTIFY_ROLE_ID).then(() => {
                 message.reply("now you will receive more news from Chino")
             })
         }
