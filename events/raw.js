@@ -11,18 +11,16 @@ module.exports = class RawEvent {
 		const muteRoleId = "703018773216755752"
 		const member = rabbitGuild.members.cache.get(raw.d.user.id)
 		const hasInvStatus = this.hasInviteStatus(member)
-		const hasMuteRole = member.roles.has(muteRoleId)
+		const hasMuteRole = member.roles.cache.has(muteRoleId)
 		if (hasInvStatus && !hasMuteRole) {
 			member.roles.add(muteRoleId)
-		} else if (hasMuteRole && hasInvStatus) {
+		} else if (hasMuteRole && !hasInvStatus) {
 			member.roles.remove(muteRoleId)
 		}
 	}
 
 	hasInviteStatus (member) {
-		return member.presence.activities.some(
-			({ type, state }) => type === 'CUSTOM_STATUS' && this.isInvite(state)
-		)
+		return member.presence.activities.some(({ type, state }) => type === "CUSTOM_STATUS" && this.isInvite(state.toLowerCase()))
 	}
 	
 	isInvite (text) {
