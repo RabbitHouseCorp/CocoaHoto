@@ -1,8 +1,9 @@
+const config = require('./config.json')
+
 const Client = require("./src/CocoaClient.js")
 const client = new Client({fetchAllMembers: true})
 require("./src/ProtoTypes.js").start()
-require("dotenv").config()
 client.loadCommands("./commands")
 client.loadEvents("./events")
-client.login(process.env.TOKEN)
+client.login(config.bot_token)
 console.log("Starting...")
