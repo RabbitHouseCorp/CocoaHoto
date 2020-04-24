@@ -22,6 +22,5 @@ module.exports = class ReadyEvent {
 
     Status()
     setInterval(() => Status(), 15000)
-    //this.client.user.setPresence({activity: {name: `${process.env.PREFIX}ajuda | ${this.client.users.size} usuários`, type: "STREAMING", url: "https://twitch.tv/danielagc"}})
   }
 }
