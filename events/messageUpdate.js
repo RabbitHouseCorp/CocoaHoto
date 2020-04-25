@@ -1,3 +1,4 @@
+const config = require('../src/config')
 const { MessageEmbed } = require("discord.js")
 module.exports = class MessageUpdateEvent {
 	constructor(client) {
@@ -17,7 +18,7 @@ module.exports = class MessageUpdateEvent {
 		embed.addField("Old message", `\`\`\`${oldMessage.content}\`\`\``)
 		embed.addField("New message", `\`\`\`${newMessage.content}\`\`\``)
 
-		oldMessage.guild.channels.cache.get("468880753195745291").send(embed)
+		oldMessage.guild.channels.cache.get(config.LOG_PRIVATE_CHANNEL_ID).send(embed)
 
 		if (oldMessage.content === newMessage.content) return
 		this.client.emit("message", newMessage)

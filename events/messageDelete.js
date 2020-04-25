@@ -1,4 +1,6 @@
+const config = require('../src/config')
 const { MessageEmbed } = require("discord.js")
+
 module.exports = class MessageDeleteReceive {
     constructor(client) {
         this.client = client
@@ -13,6 +15,6 @@ module.exports = class MessageDeleteReceive {
             .addBlankField(true)
             .addField("Message", `\`\`\`fix\n${message.content}\`\`\``)
 
-        message.guild.channels.cache.get("468880753195745291").send(embed)
+        message.guild.channels.cache.get(config.LOG_PRIVATE_CHANNEL_ID).send(embed)
     }
 }

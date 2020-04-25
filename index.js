@@ -1,8 +1,21 @@
-const Client = require("./src/CocoaClient.js")
-const client = new Client({fetchAllMembers: true})
 require("./src/ProtoTypes.js").start()
-require("dotenv").config()
-client.loadCommands("./commands")
-client.loadEvents("./events")
-client.login(process.env.TOKEN)
-console.log("Starting...")
+
+const CocoaClient = require("./src/CocoaClient.js")
+const client = new CocoaClient({ fetchAllMembers: true })
+
+client.login()
+
+// Glitch
+const http = require("http")
+const express = require("express")
+const app = express()
+
+app.get("/", (_, res) => {
+    res.sendStatus(200)
+})
+
+app.listen(process.env.PORT)
+
+setInterval(() => {
+    http.get(`http://${process.env.PROJECT_DOMAIN}.glitch.me/`)
+}, 15000)

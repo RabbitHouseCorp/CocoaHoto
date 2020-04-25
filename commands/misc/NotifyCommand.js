@@ -1,3 +1,5 @@
+const config = require('../../src/config')
+
 const Command = require("../../src/structures/Command")
 module.exports = class NotifyCommand extends Command {
     constructor(client) {
@@ -9,12 +11,12 @@ module.exports = class NotifyCommand extends Command {
 
     run(message, args) {
 
-        if (message.member.roles.cache.has("482366922822909982")) {
-            message.member.roles.remove("482366922822909982").then(() => {
+        if (message.member.roles.cache.has(config.NOTIFY_ROLE_ID)) {
+            message.member.roles.remove(config.NOTIFY_ROLE_ID).then(() => {
                 message.reply("you will no longer receive Chino news")
             })
         } else {
-            message.member.roles.add("482366922822909982").then(() => {
+            message.member.roles.add(config.NOTIFY_ROLE_ID).then(() => {
                 message.reply("now you will receive more news from Chino")
             })
         }
