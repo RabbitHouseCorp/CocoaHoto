@@ -8,7 +8,7 @@ module.exports = class GuildMemberAddEvent {
 
     run(member) {
         let role = member.guild.roles.cache.get(config.WELCOME_ROLE_ID)
-        let channel = member.guild.channels.cache.get(config.WELCOME_ROLE_ID)
+        let channel = member.guild.channels.cache.get(config.WELCOME_CHANNEL_ID)
 
         let embed = new MessageEmbed()
             .setColor(this.client.colors.default)
