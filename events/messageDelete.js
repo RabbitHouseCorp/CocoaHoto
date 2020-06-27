@@ -12,7 +12,6 @@ module.exports = class MessageDeleteReceive {
             .setColor(this.client.colors.default)
             .setAuthor(message.author.tag, message.author.displayAvatarURL())
             .setDescription("**Deleted text message**")
-            .addBlankField(true)
             .addField("Message", `\`\`\`fix\n${message.content}\`\`\``)
 
         message.guild.channels.cache.get(config.LOG_PRIVATE_CHANNEL_ID).send(embed)
