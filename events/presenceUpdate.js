@@ -7,12 +7,12 @@ module.exports = class presenceUpdateEvent {
 	}
 	
 	run(oldPresence, newPresence) {
-    if (newPresence.guild.id !== config.GUILD_ID) return
+		if (newPresence.guild.id !== config.GUILD_ID) return
     
-    if (newPresence.member.user.bot) return
+		if (newPresence.member.user.bot) return
 
-    const hasInvStatus = this.hasInviteStatus(newPresence.activities)
-    const hasMuteRole = newPresence.member.roles.cache.has(config.MUTE_ROLE_ID)
+		const hasInvStatus = this.hasInviteStatus(newPresence.activities)
+		const hasMuteRole = newPresence.member.roles.cache.has(config.MUTE_ROLE_ID)
 		if (hasInvStatus && !hasMuteRole) {
 			newPresence.member.roles.add(config.MUTE_ROLE_ID)
 		} else if (hasMuteRole && !hasInvStatus) {
@@ -25,6 +25,6 @@ module.exports = class presenceUpdateEvent {
 	}
 	
 	isInvite (text) {
-		return (/((?:discord\.gg|discordapp\.com|www\.|http|invite|discord\.com|discord\.me))/gi).test(text)
+		return (/((?:discord\.gg|discordapp\.com|www\.|invite|discord\.com|discord\.me))/gi).test(text)
 	}
 }
