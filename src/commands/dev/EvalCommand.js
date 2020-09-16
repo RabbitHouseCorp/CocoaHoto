@@ -1,4 +1,4 @@
-const Command = require("../../src/structures/Command")
+const Command = require("../../structures/Command")
 const { MessageEmbed } = require("discord.js")
 module.exports = class EvalCommand extends Command {
     constructor(client) {
@@ -29,13 +29,13 @@ module.exports = class EvalCommand extends Command {
 
         } catch (err) {
             if (err.stack.length > 1800) {
-              err.stack = err.stack.substr(0, 1800)
-              err.stack = `${err.stack}...`
+                err.stack = err.stack.substr(0, 1800)
+                err.stack = `${err.stack}...`
             }
             const embed = new MessageEmbed()
-            .setColor(this.client.colors.error)
-            .setTitle(`Oh no... An error occurred while doing this action, I'm sorry for what happened. :sob:`)
-            .setDescription(`\`\`\`${err.stack}\`\`\``)
+                .setColor(this.client.colors.error)
+                .setTitle(`Oh no... An error occurred while doing this action, I'm sorry for what happened. :sob:`)
+                .setDescription(`\`\`\`${err.stack}\`\`\``)
 
             message.channel.send(embed)
         }

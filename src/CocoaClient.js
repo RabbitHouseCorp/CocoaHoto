@@ -15,8 +15,8 @@ module.exports = class CocoaClient extends Client {
 
     login() {
         console.log("Starting...")
-        this.loadCommands(join(__dirname, "..", "commands"))
-        this.loadEvents(join(__dirname, "..", "events"))
+        this.loadCommands(join(__dirname, "commands"))
+        this.loadEvents(join(__dirname, "events"))
         return super.login(config.BOT_TOKEN)
     }
 

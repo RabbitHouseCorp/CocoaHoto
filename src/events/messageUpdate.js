@@ -1,4 +1,4 @@
-const config = require('../src/config')
+const config = require('../config')
 const { MessageEmbed } = require("discord.js")
 module.exports = class MessageUpdateEvent {
 	constructor(client) {

@@ -1,14 +1,15 @@
-const config = require('../src/config')
+const config = require('../config')
+const ReplaceCaracters = require("../structures/ReplaceCaracters")
 const { Constants } = require('discord.js')
 
 module.exports = class presenceUpdateEvent {
 	constructor(client) {
 		this.client = client
 	}
-	
+
 	run(oldPresence, newPresence) {
 		if (newPresence.guild.id !== config.GUILD_ID) return
-    
+
 		if (newPresence.member.user.bot) return
 
 		const hasInvStatus = this.hasInviteStatus(newPresence.activities)
@@ -20,11 +21,12 @@ module.exports = class presenceUpdateEvent {
 		}
 	}
 
-	hasInviteStatus (activities) {
+	hasInviteStatus(activities) {
 		return activities.some(({ type, state }) => type === 'CUSTOM_STATUS' && this.isInvite(state))
 	}
-	
-	isInvite (text) {
+
+	isInvite(text) {
+		text = ReplaceCaracters(text)
 		return (/((?:discord\.gg|discordapp\.com|www\.|invite|discord\.com|discord\.me))/gi).test(text)
 	}
 }

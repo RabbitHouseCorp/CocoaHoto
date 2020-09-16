@@ -1,6 +1,6 @@
-const config = require('../../src/config')
+const config = require('../../config')
 
-const Command = require("../../src/structures/Command")
+const Command = require("../../structures/Command")
 module.exports = class NotifyCommand extends Command {
     constructor(client) {
         super(client, {
