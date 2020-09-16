@@ -1,6 +1,4 @@
 const config = require('../config')
-const ReplaceCaracters = require("../structures/ReplaceCaracters")
-const { Constants } = require('discord.js')
 
 module.exports = class presenceUpdateEvent {
 	constructor(client) {
@@ -26,7 +24,6 @@ module.exports = class presenceUpdateEvent {
 	}
 
 	isInvite(text) {
-		text = ReplaceCaracters(text)
 		return (/((?:discord\.gg|discordapp\.com|www\.|invite|discord\.com|discord\.me))/gi).test(text)
 	}
 }
