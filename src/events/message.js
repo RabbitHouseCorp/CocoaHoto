@@ -26,7 +26,7 @@ module.exports = class MessageEvent {
       })
     }
 
-    if (DiscordInvite) {
+    if (this.isInvite(message.content) == true) {
       if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
       message.member.ban({ days: 7, reason: "[AUTO BAN] - ADVERSTING: Adversiting other servers in public chat generates automatic ban." }).then(user => {
         let embed = new MessageEmbed()
@@ -71,4 +71,28 @@ module.exports = class MessageEvent {
       console.error(err.stack)
     }
   }
+
+  isInvite(text) {
+		if((/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)) {
+			const textReplace_1 = text
+									.replace(/(https:\/\/)?(http:\/\/)/g, "")
+									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+									.replace(/(\/)/g, "")
+			const textReplace_2 = text
+									.replace(/(https:\/\/)?(http:\/\/)/g, "")
+									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+			if (!textReplace_1.length > 1) return false // Para verificar se é um codigo inválido ou seja .. se estiver "discord.gg/" ou apenas "discord.gg"
+			
+			
+			if ((/(\/+(\s+[a-z0-9-.]+)?.+)/g).test(text) == true) {
+				// Confirmação do invite!
+				return true
+			} else { 
+				return false
+			}
+			// :^) Caso se nenhum desses codigo aqui encima ^, acaba não retornando em nada.. 
+			return false
+		}
+		return (/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)
+	}
 }
