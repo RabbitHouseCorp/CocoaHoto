@@ -24,6 +24,6 @@ module.exports = class presenceUpdateEvent {
 	}
 
 	isInvite(text) {
-		return (/((?:discord\.gg|discordapp\.com|www\.|invite|discord\.com|discord\.me))/gi).test(text)
+		return (/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)
 	}
 }

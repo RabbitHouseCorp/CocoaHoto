@@ -10,9 +10,9 @@ module.exports = class MessageEvent {
     if (message.channel.type === "dm") return
     if (message.author.bot) return
 
-    let url = ["https://nakedphotos.club/", "https://viewc.site/", "https://privatepage.vip/"]
-    let DiscordInvite = ["discordapp.com/invite", "discord.gg", "discord.me"]
-    if (url.some(url => message.content.includes(url))) {
+    let url = (/(nakedphotos\.club|viewc\.site|privatepage\.vip)/g).test(message.content)
+    let DiscordInvite = (/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/g).test(message.content)
+    if (url) {
       if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
       message.member.ban({ days: 7, reason: "[AUTO BAN] - SPAM BOT: Send inappropriate links on servers." }).then(user => {
         let embed = new MessageEmbed()
@@ -26,22 +26,22 @@ module.exports = class MessageEvent {
       })
     }
 
-    if (DiscordInvite.some(url => message.content.includes(url))) {
+    if (DiscordInvite) {
       if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
-      message.member.ban({ days: 7, reason: "[AUTO BAN] - DISCLOSURE: Disclosing other servers in public chat generates automatic ban." }).then(user => {
+      message.member.ban({ days: 7, reason: "[AUTO BAN] - ADVERSTING: Adversiting other servers in public chat generates automatic ban." }).then(user => {
         let embed = new MessageEmbed()
           .setColor(this.client.colors.punishment)
           .setAuthor(`${user.user.tag} | Banned`, user.user.displayAvatarURL())
           .addField("User banned", user.user.tag, true)
           .addField("Who banned", this.client.user.tag, true)
-          .addField("Reason", "```fix\n[AUTO BAN] - DISCLOSURE: Disclosing other servers in public chat generates automatic ban.```")
+          .addField("Reason", "```fix\n[AUTO BAN] - ADVERSTING: Adversiting other servers in public chat generates automatic ban.```")
 
         message.guild.channels.cache.get(config.LOG_PUBLIC_CHANNEL_ID).send(embed)
       })
     }
 
     if (message.content === message.guild.me.toString()) {
-      message.cocoaReply(`my prefix is \`${process.env.PREFIX}\`, use \`${process.env.PREFIX}ajuda\``)
+      message.cocoaReply(`my prefix is \`${process.env.PREFIX}\`, for now, I don't have a help command.`)
     }
     if (!message.content.startsWith(process.env.PREFIX)) return
     const args = message.content.slice(process.env.PREFIX.length).trim().split(" ")
