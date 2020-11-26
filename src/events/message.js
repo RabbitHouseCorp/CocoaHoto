@@ -10,22 +10,23 @@ module.exports = class MessageEvent {
     if (message.channel.type === "dm") return
     if (message.author.bot) return
     let IsInviteOfServer;
-    await message.guild.fetchInvites().then(async (invite) => {
-        const messageRaioX = message.content
-                                .replace(/(https:\/\/|http:\/\/)/, "")
-                                .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/, "")
-                                .replace("/", "").split(" ")
-        if(invite.find(e => e.code == messageRaioX) == null ? false : true) {
-         IsInviteOfServer = true
-        } else {
-          IsInviteOfServer = false
-        }
-     
-    })
+  
   
     let url = (/(nakedphotos\.club|viewc\.site|privatepage\.vip)/g).test(message.content)
     let DiscordInvite = (/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/g).test(message.content)
     if (url) {
+        await message.guild.fetchInvites().then(async (invite) => {
+          const messageRaioX = message.content
+                                  .replace(/(https:\/\/|http:\/\/)/, "")
+                                  .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/, "")
+                                  .replace("/", "").split(" ")
+          if(invite.find(e => e.code == messageRaioX) == null ? false : true) {
+          IsInviteOfServer = true
+          } else {
+            IsInviteOfServer = false
+          }
+      
+      })
       if (!IsInviteOfServer == false) return
       if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
       // Filtro de invite
@@ -45,6 +46,18 @@ module.exports = class MessageEvent {
     }
 
     if (this.isInvite(message.content) == true) {
+      await message.guild.fetchInvites().then(async (invite) => {
+        const messageRaioX = message.content
+                                .replace(/(https:\/\/|http:\/\/)/, "")
+                                .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/, "")
+                                .replace("/", "").split(" ")
+        if(invite.find(e => e.code == messageRaioX) == null ? false : true) {
+         IsInviteOfServer = true
+        } else {
+          IsInviteOfServer = false
+        }
+     
+    })
       if (!IsInviteOfServer == false) return
       if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
       message.member.ban({ days: 7, reason: "[AUTO BAN] - ADVERSTING: Adversiting other servers in public chat generates automatic ban." }).then(user => {
