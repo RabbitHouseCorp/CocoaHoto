@@ -9,11 +9,30 @@ module.exports = class MessageEvent {
   async run(message) {
     if (message.channel.type === "dm") return
     if (message.author.bot) return
-
+    let IsInviteOfServer;
+  
+  
     let url = (/(nakedphotos\.club|viewc\.site|privatepage\.vip)/g).test(message.content)
     let DiscordInvite = (/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/g).test(message.content)
     if (url) {
+        await message.guild.fetchInvites().then(async (invite) => {
+          const messageRaioX = message.content
+                                  .replace(/(https:\/\/|http:\/\/)/, "")
+                                  .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/, "")
+                                  .replace("/", "").split(" ")
+          if(invite.find(e => e.code == messageRaioX) == null ? false : true) {
+          IsInviteOfServer = true
+          } else {
+            IsInviteOfServer = false
+          }
+      
+      })
+      if (!IsInviteOfServer == false) return
       if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
+      // Filtro de invite
+     
+    
+   
       message.member.ban({ days: 7, reason: "[AUTO BAN] - SPAM BOT: Send inappropriate links on servers." }).then(user => {
         let embed = new MessageEmbed()
           .setColor(this.client.colors.punishment)
@@ -27,6 +46,19 @@ module.exports = class MessageEvent {
     }
 
     if (this.isInvite(message.content) == true) {
+      await message.guild.fetchInvites().then(async (invite) => {
+        const messageRaioX = message.content
+                                .replace(/(https:\/\/|http:\/\/)/, "")
+                                .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/, "")
+                                .replace("/", "").split(" ")
+        if(invite.find(e => e.code == messageRaioX) == null ? false : true) {
+         IsInviteOfServer = true
+        } else {
+          IsInviteOfServer = false
+        }
+     
+    })
+      if (!IsInviteOfServer == false) return
       if (message.member.roles.cache.has(config.STAFF_ROLE_ID)) return
       message.member.ban({ days: 7, reason: "[AUTO BAN] - ADVERSTING: Adversiting other servers in public chat generates automatic ban." }).then(user => {
         let embed = new MessageEmbed()
@@ -73,18 +105,19 @@ module.exports = class MessageEvent {
   }
 
   isInvite(text) {
+    text = `${text}`.replace(/(https:\/\/|http:\/\/)/g, "")
 		if((/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)) {
 			const textReplace_1 = text
 									.replace(/(https:\/\/)?(http:\/\/)/g, "")
-									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+									.replace(/(?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me)/g, "")
 									.replace(/(\/)/g, "")
 			const textReplace_2 = text
 									.replace(/(https:\/\/)?(http:\/\/)/g, "")
-									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+									.replace(/(?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me)/g, "")
 			if (!textReplace_1.length > 1) return false // Para verificar se é um codigo inválido ou seja .. se estiver "discord.gg/" ou apenas "discord.gg"
 			
 			
-			if ((/(\/+(\s+[a-z0-9-.]+)?.+)/g).test(text) == true) {
+			if ((/(\/+(\b\s+[a-z0-9-.]+)?.+)/g).test(text) == true) {
 				// Confirmação do invite!
 				return true
 			} else { 
@@ -93,6 +126,6 @@ module.exports = class MessageEvent {
 			// :^) Caso se nenhum desses codigo aqui encima ^, acaba não retornando em nada.. 
 			return false
 		}
-		return (/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)
+		return (/((?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)
 	}
 }
