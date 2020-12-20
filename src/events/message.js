@@ -13,12 +13,12 @@ module.exports = class MessageEvent {
   
   
     let url = (/(nakedphotos\.club|viewc\.site|privatepage\.vip)/g).test(message.content)
-    let DiscordInvite = (/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/g).test(message.content)
+    let DiscordInvite = (/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me|discord\.io)/g).test(message.content)
     if (url) {
         await message.guild.fetchInvites().then(async (invite) => {
           const messageRaioX = message.content
                                   .replace(/(https:\/\/|http:\/\/)/, "")
-                                  .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/, "")
+                                  .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me|discord\.io)/, "")
                                   .replace("/", "").split(" ")
           if(invite.find(e => e.code == messageRaioX) == null ? false : true) {
           IsInviteOfServer = true
@@ -49,7 +49,7 @@ module.exports = class MessageEvent {
       await message.guild.fetchInvites().then(async (invite) => {
         const messageRaioX = message.content
                                 .replace(/(https:\/\/|http:\/\/)/, "")
-                                .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me)/, "")
+                                .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me|discord\.io)/, "")
                                 .replace("/", "").split(" ")
         if(invite.find(e => e.code == messageRaioX) == null ? false : true) {
          IsInviteOfServer = true
@@ -106,14 +106,14 @@ module.exports = class MessageEvent {
 
   isInvite(text) {
     text = `${text}`.replace(/(https:\/\/|http:\/\/)/g, "")
-		if((/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)) {
+		if((/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me|discord\.io))/g).test(text)) {
 			const textReplace_1 = text
 									.replace(/(https:\/\/)?(http:\/\/)/g, "")
-									.replace(/(?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+									.replace(/(?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me|discord\.io)/g, "")
 									.replace(/(\/)/g, "")
 			const textReplace_2 = text
 									.replace(/(https:\/\/)?(http:\/\/)/g, "")
-									.replace(/(?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+									.replace(/(?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me|discord\.io)/g, "")
 			if (!textReplace_1.length > 1) return false // Para verificar se é um codigo inválido ou seja .. se estiver "discord.gg/" ou apenas "discord.gg"
 			
 			
@@ -126,6 +126,6 @@ module.exports = class MessageEvent {
 			// :^) Caso se nenhum desses codigo aqui encima ^, acaba não retornando em nada.. 
 			return false
 		}
-		return (/((?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)
+		return (/((?:discord\.gg|discordapp\.com\/invite|discord.com\/invite|discord\.com\/invite|discord\.me|discord\.io))/g).test(text)
 	}
 }
