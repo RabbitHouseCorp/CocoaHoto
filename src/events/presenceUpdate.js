@@ -22,14 +22,14 @@ module.exports = class presenceUpdateEvent {
 	}
 
 	isInvite(text) {
-		if((/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)) {
+		if((/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me|discord\.io))/g).test(text)) {
 			const textReplace_1 = text
 									.replace(/(https:\/\/)?(http:\/\/)/g, "")
-									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me|discord\.io)/g, "")
 									.replace(/(\/)/g, "")
 			const textReplace_2 = text
 									.replace(/(https:\/\/)?(http:\/\/)/g, "")
-									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me)/g, "")
+									.replace(/(discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me|discord\.io)/g, "")
 			if (!textReplace_1.length > 1) return false // Para verificar se é um codigo inválido ou seja .. se estiver "discord.gg/" ou apenas "discord.gg"
 			
 			
@@ -42,6 +42,6 @@ module.exports = class presenceUpdateEvent {
 			// :^) Caso se nenhum desses codigo aqui encima ^, acaba não retornando em nada.. 
 			return false
 		}
-		return (/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me))/g).test(text)
+		return (/((?:discord\.gg|discordapp\.com\/invite|discord\.com\/invite|discord\.me|discord\.io))/g).test(text)
 	}
 }
