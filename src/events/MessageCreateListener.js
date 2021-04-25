@@ -3,7 +3,7 @@ const invite = new AntiInviteUtils()
 
 module.exports = {
   label: 'messageCreate',
-  run: (client, message) => {
+  run: async (client, message) => {
     if (message.author.bot) return
     if (message.channel.type !== 0) return
     const guild = client.guilds.get(config.GUILD_ID)
@@ -12,6 +12,12 @@ module.exports = {
     }
     if (invite.isInvite(message.content.toLowerCase())) {
       if (message.member.roles.includes(config.STAFF_ROLE_ID)) return
+      const guildInvite = await client.getGuildInvites(message.guildID)
+      const messageInvite = message.content
+        .replace(/(https:\/\/|http:\/\/)/, "")
+        .replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me|discord\.io)/, "")
+        .replace("/", "")
+      if (guildInvite.find(({ code }) => code === messageInvite)) return
       const embed = new EmbedBuilder()
       embed.setColor('PUNISHMENT')
       embed.setAuthor(`${message.author.username}#${message.author.discriminator} | Warned`, message.author.avatarURL)
@@ -30,7 +36,7 @@ module.exports = {
     const command = client.commands.get(commandName) || client.commands.get(client.aliases.get(commandName))
     if (!command) return
     if (command.config.onlyDevs && !config.OWNER_IDS.includes(message.author.id)) return message.channel.createMessage(`${message.author.mention}, only developers has access from this command.`)
-    
+
     command.run(message, args)
   }
 }
