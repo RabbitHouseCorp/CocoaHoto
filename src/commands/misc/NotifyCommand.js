@@ -1,24 +1,22 @@
-const config = require('../../config')
+const { Command, config } = require('../../utils')
 
-const Command = require("../../structures/Command")
 module.exports = class NotifyCommand extends Command {
-    constructor(client) {
-        super(client, {
-            name: "notify",
-            aliases: ["notificar"]
-        })
-    }
+  constructor(client) {
+    super(client, {
+      name: 'notify',
+      aliases: ['notificar']
+    })
+  }
 
-    run(message, args) {
-
-        if (message.member.roles.cache.has(config.NOTIFY_ROLE_ID)) {
-            message.member.roles.remove(config.NOTIFY_ROLE_ID).then(() => {
-                message.reply("you will no longer receive Chino news")
-            })
-        } else {
-            message.member.roles.add(config.NOTIFY_ROLE_ID).then(() => {
-                message.reply("now you will receive more news from Chino")
-            })
-        }
+  run(message, args) {
+    if (message.member.roles.includes(config.NOTIFY_ROLE_ID)) {
+      message.member.removeRole(config.NOTIFY_ROLE_ID).then(() => {
+        message.channel.createMessage(`${message.author.mention}, you will no longer receive Chino news`)
+      })
+    } else {
+      message.member.addRole(config.NOTIFY_ROLE_ID).then(() => {
+        message.channel.createMessage(`${message.author.mention}, now you will receive more news from Chino`)
+      })
     }
+  }
 }

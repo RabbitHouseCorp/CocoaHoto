@@ -1,10 +1,11 @@
-const Command = require("../../structures/Command")
+const { Command } = require('../../utils')
+
 module.exports = class PingCommand extends Command {
   constructor(client) {
     super(client, {
-      name: "ping",
+      name: 'ping',
       aliases: [],
-      category: "misc",
+      category: 'misc',
       userPermission: [],
       clientPermission: [],
       onlyDevs: false
@@ -12,7 +13,7 @@ module.exports = class PingCommand extends Command {
   }
 
   async run(message, args) {
-    let msg = await message.channel.send(":ping_pong:")
-    msg.edit(`Pong! :ping_pong: \`${Math.round(this.client.ws.ping)}\`ms.`)
+    let msg = await message.channel.createMessage(':ping_pong:')
+    msg.edit(`Pong! :ping_pong: \`${Math.round(message.channel.guild.shard.latency)}\`ms.`)
   }
 }

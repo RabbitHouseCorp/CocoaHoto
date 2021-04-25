@@ -1,0 +1,7 @@
+module.exports = {
+  DEFAULT: 0xFF9FBC,
+  ERROR: 0xFA704D,
+  PUNISHMENT: 0xFF4A4A,
+  LEAVE: 0xBDBDBD,
+  WELCOME: 0xB9FFA3
+}

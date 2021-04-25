@@ -1,6 +1,4 @@
-require("./src/ProtoTypes.js").start()
-
-const CocoaClient = require("./src/CocoaClient.js")
-const client = new CocoaClient({ fetchAllMembers: true })
-
-client.login()
+const { options } = require('./config')
+const CocoaClient = require('./src/CocoaClient.js')
+const client = new CocoaClient(process.env.TOKEN, options)
+client.connect()
