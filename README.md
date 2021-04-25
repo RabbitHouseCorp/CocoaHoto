@@ -5,8 +5,7 @@
 # Tutorial
 ## Antes de tudo, tenha em mente que você precisa ter o NodeJS instalado. Vamos começar?
 
-#### Instale a versão dev do discord.js: ``npm install discordjs/discord.js#master``
-#### Logo em seguida instale o dotenv: ``npm i --save-dev dotenv``
+#### Instale as depedencias: ``npm install``
 #### Veja os exemplos do .env.example
 #### Após ter feito isso, inicie o bot usando: ``node .`` ou ``node index.js``
 
