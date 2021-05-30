@@ -2,8 +2,13 @@ const { EmbedBuilder, config } = require('../utils')
 module.exports = {
   label: 'guildMemberAdd',
   run: (client, guild, member) => {
-    const channel = guild.channels.get(config.WELCOME_CHANNEL_ID)
+    if (member.user.bot) {
+      const role = guild.roles.get(config.BOT_ROLE_ID)
+      if (member.roles.includes(role.id)) return
+      member.addRole(role.id)
+    }
 
+    const channel = guild.channels.get(config.WELCOME_CHANNEL_ID)
     const embed = new EmbedBuilder()
     embed.setColor('WELCOME')
     embed.setThumbnail(member.user.avatarURL)
@@ -17,7 +22,6 @@ module.exports = {
     channel.edit({
       topic: `[Click to expand] ${member.guild.memberCount} members | Read the <#${config.INFO_CHANNEL_ID}> to know what is allowed or not. \n\n**INVITE TO SERVER:** If you want to know about the server invite, here it is: https://discord.gg/CAm9cSU\n\n**CHINO'S INVITE:** If you want to add it to your server, here is my invite: https://discordapp.com/oauth2/authorize?client_id=${config.MAIN_BOT_ID}&scope=bot&permissions=2117578239`
     })
-
     channel.createMessage(embed.build())
   }
 }
