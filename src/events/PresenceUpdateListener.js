@@ -18,7 +18,7 @@ module.exports = {
 				.replace(/(discord\.gg|discord\.com\/invite|discordapp\.com\/invite|discord\.me|discord\.io)/, "")
 				.replace("/", "")
 			if (guildInvite.find(({ code }) => code === invite)) return
-
+			if (member.pending) return
 			member.addRole(config.MUTE_ROLE_ID)
 		} else if (hasMuteRole && !hasInvStatus) {
 			member.removeRole(config.MUTE_ROLE_ID)
