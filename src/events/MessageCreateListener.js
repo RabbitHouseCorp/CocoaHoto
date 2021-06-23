@@ -20,7 +20,7 @@ module.exports = {
       embed.addField('Reason', '[AUTO MOD] SPAMBOT - Sending a malicious or NSFW URL is not allowed in our guild. Get away from here!')
       
       message.delete()
-      message.channel.guild.banMember(message.author.id, 7, '[AUTO MOD] SPAMBOT - Send on public channel a malicious or NSFW URL is not allowed in our guild. Get away from here!')
+      message.channel.guild.banMember(message.author.id, 7, '[AUTO MOD] SPAMBOT - Sending a malicious or NSFW URL is not allowed in our guild. Get away from here!')
       return guild.channels.get(config.LOG_PUBLIC_CHANNEL_ID).createMessage(embed.build())
     }
     if (invite.isInvite(message.content.toLowerCase())) {
