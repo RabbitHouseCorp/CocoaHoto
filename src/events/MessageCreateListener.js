@@ -17,7 +17,7 @@ module.exports = {
       embed.setThumbnail(client.user.avatarURL)
       embed.addField('Username', `${message.author.username}#${message.author.discriminator} (\`${message.author.id}\`)`)
       embed.addField('Who punished', `${client.user.username}#${client.user.discriminator} (\`${client.user.id}\`)`)
-      embed.addField('Reason', '[AUTO MOD] SPAMBOT - Send on public channel a malicious or NSFW URL is not allowed in our guild. Get away from here!')
+      embed.addField('Reason', '[AUTO MOD] SPAMBOT - Sending a malicious or NSFW URL is not allowed in our guild. Get away from here!')
       
       message.delete()
       message.channel.guild.banMember(message.author.id, 7, '[AUTO MOD] SPAMBOT - Send on public channel a malicious or NSFW URL is not allowed in our guild. Get away from here!')
