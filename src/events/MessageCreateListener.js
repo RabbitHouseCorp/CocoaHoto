@@ -10,16 +10,17 @@ module.exports = {
     if (message.content.toLowerCase().includes('coco arroto')) {
       return message.channel.createMessage(`Hey ${message.author.mention}! O que eu fiz pra você me chamar assim? Isso é bullying, sabia? Recomendo parar de me chamar assim, eu não sou nenhuma palhaça para ser apelidada dessa forma. Hmpf! <:cocoa_shok:653653495412424705>`)
     }
-    if (message.content.toLowerCase().includes('stmeacomunnitty.ru/')) {
+    if ((/(?:stmeacomunnitty\.ru)/g).test(message.content.toLowerCase())) {
       const embed = new EmbedBuilder()
       embed.setColor('PUNISHMENT')
-      embed.setAuthor(`${message.author.username}#${message.author.discriminator} | Warned`, message.author.avatarURL)
+      embed.setAuthor(`${message.author.username}#${message.author.discriminator} | Banned`, message.author.avatarURL)
       embed.setThumbnail(client.user.avatarURL)
       embed.addField('Username', `${message.author.username}#${message.author.discriminator} (\`${message.author.id}\`)`)
       embed.addField('Who punished', `${client.user.username}#${client.user.discriminator} (\`${client.user.id}\`)`)
       embed.addField('Reason', '[AUTO MOD] SPAMBOT - Send on public channel a malicious or NSFW URL is not allowed in our guild. Get away from here!')
+      
       message.delete()
-      message.channel.createMessage(`Hey ${message.author.mention}! Stop right there. You can't adversiting others Discord guild here.`)
+      message.channel.guild.banMember(message.author.id, 7, '[AUTO MOD] SPAMBOT - Send on public channel a malicious or NSFW URL is not allowed in our guild. Get away from here!')
       return guild.channels.get(config.LOG_PUBLIC_CHANNEL_ID).createMessage(embed.build())
     }
     if (invite.isInvite(message.content.toLowerCase())) {
