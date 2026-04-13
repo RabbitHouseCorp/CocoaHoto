@@ -17,6 +17,6 @@
     "eris": "github:abalabahaha/eris#dev"
   },
   "devDependencies": {
-    "dotenv": "^16.0.0"
+    "dotenv": "^17.4.2"
   }
 }
